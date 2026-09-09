@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { Zap, Trophy, Shield, LogOut, ArrowRight, User } from "lucide-react";
 
 export default function Navbar({ team, onLogout, onNavigate }) {
@@ -19,7 +19,7 @@ export default function Navbar({ team, onLogout, onNavigate }) {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-heading font-extrabold text-lg sm:text-xl tracking-wider text-white">
-                DELULU<span className="text-cyan-400">DEBUG</span>
+                DELULU<span className="text-cyan-400">HUNT</span>
               </span>
               <span className="text-[10px] uppercase font-mono tracking-widest px-2 py-0.5 rounded bg-blue-950/90 text-cyan-300 border border-blue-800/60">
                 Round 2

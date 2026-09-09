@@ -1,13 +1,13 @@
-﻿{
-  "name": "delulu-debug-innovatex",
+{
+  "name": "delulu-hunt-innovatex",
   "version": "1.0.0",
-  "description": "DELULU DEBUG — Round 2 Innovatex Full-Stack Challenge Platform",
+  "description": "DELULU HUNT — Round 2 Innovatex Full-Stack Challenge Platform",
   "scripts": {
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev:client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "npm run build --prefix client",
+    "build": "npm --prefix client install && npm --prefix client run build",
     "start": "npm start --prefix server"
   },
   "devDependencies": {

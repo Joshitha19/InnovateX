@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { 
   Zap, 
   Trophy, 
@@ -80,11 +80,11 @@ export default function HomePage({ onNavigate, team }) {
 
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/90 border border-blue-500/40 text-cyan-300 text-xs sm:text-sm font-mono mb-8 shadow-glow-blue animate-float">
           <Zap className="w-4 h-4 text-cyan-400 fill-cyan-400" />
-          <span>INNOVATEX GRAND FINALE • DELULU DEBUG</span>
+          <span>INNOVATEX GRAND FINALE • DELULU HUNT</span>
         </div>
 
         <h1 className="font-heading font-extrabold text-4xl sm:text-6xl lg:text-7xl tracking-tight text-white mb-6 leading-[1.1]">
-          DELULU <span className="text-gradient-cyan">DEBUG</span>
+          DELULU <span className="text-gradient-cyan">HUNT</span>
           <br />
           <span className="text-2xl sm:text-4xl lg:text-5xl font-semibold text-slate-300">
             The 6-Stage Multiplayer Challenge Arena
@@ -92,7 +92,7 @@ export default function HomePage({ onNavigate, team }) {
         </h1>
 
         <p className="max-w-2xl mx-auto text-slate-300 text-base sm:text-lg leading-relaxed mb-10 font-sans">
-          Fix broken code, crack secret ciphers, reverse tactical AI prompts, and out-maneuver 85+ teams in real-time. 
+          Fix broken code, crack secret ciphers, reverse tactical AI prompts, and hunt hidden steganography flags in real-time. 
           Manage your <span className="text-cyan-300 font-mono font-bold">100 Credits</span> strategically — hints cost credits, 
           and remaining balance decides who claims the ₹50,000 championship.
         </p>
@@ -163,7 +163,7 @@ export default function HomePage({ onNavigate, team }) {
             Game Mechanics
           </h2>
           <p className="font-heading text-2xl sm:text-4xl font-bold text-white">
-            How DELULU DEBUG Works
+            How DELULU HUNT Works
           </p>
         </div>
 
@@ -281,7 +281,7 @@ export default function HomePage({ onNavigate, team }) {
       <footer className="border-t border-slate-800/80 bg-[#04050A]/95 py-8 px-4 sm:px-6 lg:px-8 mt-12">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
           <div>
-            <span className="text-white font-heading font-bold text-sm">DELULU DEBUG</span>
+            <span className="text-white font-heading font-bold text-sm">DELULU HUNT</span>
             <span className="ml-2 text-slate-500">• InnovateX Round 2 Tech Event</span>
           </div>
           <div className="text-center sm:text-right text-slate-400">
