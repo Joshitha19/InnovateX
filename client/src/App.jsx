@@ -1,11 +1,42 @@
-﻿import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import DashboardPage from "./pages/DashboardPage";
+import RoundPage from "./pages/RoundPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import AdminPage from "./pages/AdminPage";
+import { api } from "./api/client";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [team, setTeam] = useState(null); // team session if logged in
+  const [currentRoundIndex, setCurrentRoundIndex] = useState(1);
+  const [team, setTeam] = useState(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  // Restore session from localStorage if token exists
+  useEffect(() => {
+    const token = localStorage.getItem("delulu_token");
+    if (token) {
+      api.getMe()
+        .then((res) => {
+          if (res.team) {
+            setTeam(res.team);
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem("delulu_token");
+          setTeam(null);
+        })
+        .finally(() => {
+          setCheckingAuth(false);
+        });
+    } else {
+      setCheckingAuth(false);
+    }
+  }, []);
 
   const handleNavigate = (page) => {
     setCurrentPage(page);
@@ -16,6 +47,12 @@ export default function App() {
     localStorage.removeItem("delulu_token");
     setTeam(null);
     setCurrentPage("home");
+  };
+
+  const handleSelectRound = (index) => {
+    setCurrentRoundIndex(index);
+    setCurrentPage("round");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -30,7 +67,7 @@ export default function App() {
         onNavigate={handleNavigate} 
       />
 
-      {/* Main Page Rendering */}
+      {/* Main Content Router */}
       <main className="flex-grow">
         {currentPage === "home" && (
           <HomePage 
@@ -39,44 +76,53 @@ export default function App() {
           />
         )}
 
-        {/* Temporary placeholders while we build subsequent pages */}
         {currentPage === "login" && (
-          <div className="relative z-10 max-w-md mx-auto my-20 p-8 rounded-2xl bg-[#090D1A] border border-slate-800 text-center">
-            <h2 className="text-xl font-heading font-bold text-white mb-2">Team Portal Login</h2>
-            <p className="text-sm text-slate-400 mb-6 font-mono">Authentication module coming up next</p>
-            <button 
-              onClick={() => setCurrentPage("home")}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold"
-            >
-              Back to Home
-            </button>
-          </div>
+          <LoginPage 
+            onLoginSuccess={(newTeam) => {
+              setTeam(newTeam);
+            }} 
+            onNavigate={handleNavigate} 
+          />
         )}
 
         {currentPage === "register" && (
-          <div className="relative z-10 max-w-md mx-auto my-20 p-8 rounded-2xl bg-[#090D1A] border border-slate-800 text-center">
-            <h2 className="text-xl font-heading font-bold text-white mb-2">Register Your Team</h2>
-            <p className="text-sm text-slate-400 mb-6 font-mono">Team creation module coming up next</p>
-            <button 
-              onClick={() => setCurrentPage("home")}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold"
-            >
-              Back to Home
-            </button>
-          </div>
+          <RegisterPage 
+            onLoginSuccess={(newTeam) => {
+              setTeam(newTeam);
+            }} 
+            onNavigate={handleNavigate} 
+          />
+        )}
+
+        {currentPage === "dashboard" && (
+          <DashboardPage 
+            team={team} 
+            onUpdateTeam={setTeam} 
+            onNavigate={handleNavigate} 
+            onSelectRound={handleSelectRound} 
+          />
+        )}
+
+        {currentPage === "round" && (
+          <RoundPage 
+            roundIndex={currentRoundIndex} 
+            team={team} 
+            onUpdateTeam={setTeam} 
+            onNavigate={handleNavigate} 
+            onNextRound={handleSelectRound} 
+          />
         )}
 
         {currentPage === "leaderboard" && (
-          <div className="relative z-10 max-w-md mx-auto my-20 p-8 rounded-2xl bg-[#090D1A] border border-slate-800 text-center">
-            <h2 className="text-xl font-heading font-bold text-white mb-2">Live Leaderboard</h2>
-            <p className="text-sm text-slate-400 mb-6 font-mono">WebSocket live rank broadcast coming up next</p>
-            <button 
-              onClick={() => setCurrentPage("home")}
-              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold"
-            >
-              Back to Home
-            </button>
-          </div>
+          <LeaderboardPage 
+            onNavigate={handleNavigate} 
+          />
+        )}
+
+        {(currentPage === "admin-login" || currentPage === "admin") && (
+          <AdminPage 
+            onNavigate={handleNavigate} 
+          />
         )}
       </main>
     </div>
